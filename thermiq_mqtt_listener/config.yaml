@@ -1,8 +1,8 @@
-name: "thermiq_mqtt_listener"
-version: 0.0.2
-slug: "thermiq_mqtt_listener"
-description: "ThermIQ MQTT Listener to MariaDB"
-url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
+name: thermiq2-we
+version: 0.0.1
+slug: thermiq2w
+description: ThermIQ2-web container based on Apache and PHP8
+url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq2_web
 arch:
   - armhf
   - armv7
@@ -20,39 +20,43 @@ ingress: true
 init: false
 panel_icon: mdi:web-box
 options:
-
-  mqtt_server:
-  mqtt_port:
-  mqtt_user: 
-  mqtt_pw:
+  website_name: ThermIQ
+  thermiq_user: 
+  thermiq_licenskey:
   mariadb_user:
   mariadb_pw:
+  thermiq_init: true
+  document_root: /share/htdocs
   php_ini: /share/php.ini
-
-
+  default_conf: default
+  default_ssl_conf: default
 
   ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
-
+  init_commands: []
 schema:
-  mqtt_server: str
-  mqtt_port: str
-  mqtt_user: str
-  mqtt_pw: str
+  website_name: str
+  thermiq_user:  str
+  thermiq_licenskey: str
   mariadb_user: str
-  mariadb_pw: str
-  mariadb_user: str
-  mariadb_pw : strs
+  mariadb_pw : str
+  thermiq_init: bool
+  document_root: str
   php_ini: str
+  default_conf: str
+  default_ssl_conf: str
 
+  username: str?
+  password: password?
   ssl: bool
   certfile: str
   keyfile: str
-
+  init_commands:
+    - str?
 ports:
-  80/tcp: 82
-  443/tcp: 8325
+  80/tcp: 81
+  443/tcp: 8324
 ports_description:
   80/tcp: Web interface http
   443/tcp: SSL Web interface
