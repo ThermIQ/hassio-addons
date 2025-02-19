@@ -47,8 +47,7 @@ RUN echo "Transferlog /dev/stdout" >> /etc/apache2/httpd.conf
 # Copy data for add-on
 COPY run.sh /
 RUN chmod a+x /run.sh
-COPY runw.sh /
-RUN chmod a+x /runw.sh
+
 
 
 # Directory structure for ThermIQ
