@@ -3,7 +3,7 @@ name: thermiq2-web
 version: 0.0.1
 slug: thermiq2
 description: ThermIQ2-web based on Apache and PHP8
-url: https://github.com/ThermIQ/hassio-addons/tree/master/apache2
+url: https://github.com/ThermIQ/hassio-addons/main/master/thermiq2_web
 arch:
   - armhf
   - armv7
