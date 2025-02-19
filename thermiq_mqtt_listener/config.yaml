@@ -1,8 +1,8 @@
-name: thermiq2-we
+name: thermiq2-wee
 version: 0.0.1
-slug: thermiq2w
+slug: thermiq2wee
 description: ThermIQ2-web container based on Apache and PHP8
-url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq2_web
+url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
 arch:
   - armhf
   - armv7
