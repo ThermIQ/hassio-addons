@@ -1,5 +1,5 @@
 {
-  "name": "FaserF Home Assistant Add-ons",
-  "url": "https://github.com/faserf/hassio-addons",
-  "maintainer": "FaserF"
+  "name": "ThermIQ for Home Assistant Add-on",
+  "url": "https://github.com/ThermIQ/hassio-addons",
+  "maintainer": "ThermIQ"
 }

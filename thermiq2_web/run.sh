@@ -1,6 +1,11 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/with-contenv bashio 
 ssl=$(bashio::config 'ssl')
 website_name=$(bashio::config 'website_name')
+thermiq_user=$(bashio::config 'thermiq_user')
+thermiq_licensekey=$(bashio::config 'thermiq_licensekey')
+mariadb_user=$(bashio::config 'mariadb_user')
+mariadb_pw=$(bashio::config 'mariadb_pw')
+thermiq_init=$(bashio::config 'thermiq_init')
 certfile=$(bashio::config 'certfile')
 keyfile=$(bashio::config 'keyfile')
 DocumentRoot=$(bashio::config 'document_root')
@@ -19,13 +24,6 @@ if [ $phpini = "get_file" ]; then
 	exit 1
 fi
 
-if bashio::config.has_value 'init_commands'; then
-	echo "Detected custom init commands. Running them now."
-	while read -r cmd; do
-		eval "${cmd}" ||
-			bashio::exit.nok "Failed executing init command: ${cmd}"
-	done <<<"$(bashio::config 'init_commands')"
-fi
 
 rm -r $webrootdocker
 
@@ -170,7 +168,67 @@ if [ "$default_ssl_conf" != "default" ]; then
 	fi
 fi
 
-mkdir /usr/lib/php84/modules/opcache
+mkdir -p /usr/lib/php84/modules/opcache
+
+# Here goeas thermiq install,
+if [ "$thermiq_init" == "true" ]; then
+	echo "Installing ThermIQ from web"
+	cd /tmp/thermiq_install
+	rm -rf *
+
+	curl -o thermiq2_instal.tar.gz "http://www.thermiq.net/getThermIQ2.php?base_install=haos" 
+	tar xzf thermiq2_instal.tar.gz
+	cp -f pkg_haos/php_haos.ini /share/php.ini
+	
+	chmod ug+x usr/sbin/*
+	hashue=`php84 usr/sbin/hashit $thermiq_user`
+	hashpw=`php84 usr/sbin/hashit -c $thermiq_licensekey`
+
+	curl "https://www.thermiq.net/getThermIQ2.php?USERID=${hashue}&USERKEY=${hashpw}&USERMODULES=all" | jq -r .[][0] | while read -r module; \
+       do curl -o "$module.tar.gz" https://www.thermiq.net/getThermIQ2.php -H "Accept: application/json" -H "USERID: ${hashue}" -H "USERKEY: ${hashpw}" -H "USERDLREV: beta" -H "USERMODULE: $module" -H "USERVERSION: 1" -H "USEROS: Linux" -H "MACHINEID: 1234"; tar xvf $module.tar.gz; \
+    done;
+
+	chmod ug+x usr/sbin/*
+	cp -rf usr/sbin/* /share/thermiq/
+	cp -rf html/* /share/htdocs/
+	chmod -R ug+r /share/htdocs/*
+	rm -f /share/htdocs/index.html
+
+	if [ -e /share/thermiq/etc/Thermiq_Haos.ini ]; then cp -f /share/thermiq/etc/Thermiq_Haos.ini /tmp/thermiq_install/opt/etc/;else \
+		cd opt/etc/
+		sed -i "s:mysql_users_user.*:mysql_users_user = '${mariadb_user}':" Thermiq_Haos.ini
+		sed -i "s:mysql_users_pw.*:mysql_users_pw = '${mariadb_pw}':" Thermiq_Haos.ini
+		sed -i "s:mysql_thermiq_user.*:mysql_thermiq_user = '${mariadb_user}':" Thermiq_Haos.ini
+		sed -i "s:mysql_thermiq_pw.*:mysql_thermiq_pw = '${mariadb_pw}':" Thermiq_Haos.ini
+
+
+		sed -i 's:\[thermiq\]::' Thermiq_Haos.ini
+		sed -i 's:order_email.*::' Thermiq_Haos.ini
+		sed -i 's:license_key.*::' Thermiq_Haos.ini
+		echo "[thermiq]" >> Thermiq_Haos.ini
+		echo "order_email=${thermiq_user}" >> Thermiq_Haos.ini
+		echo "license_key=${thermiq_licensekey}" >> Thermiq_Haos.ini
+		php84 /share/thermiq/mkdbtemplate -m ThermIQ ThermIQ_MQTT
+	fi
+	cp -rf /tmp/thermiq_install/opt/etc/* /share/thermiq/etc/
+	chmod a+rw /opt/etc/*
+
+	# ThermIQ_Haos.ini
+
+
+	cd /tmp
+	#rm -rf thermiq_install
+fi
+
+#php84 /share/thermiq/ThermIQ_MQTT_listener &
+
+
+
+
+#php84 usr/sbin/mkdbtemplate -m ThermIQ ThermIQ_MQTT
+
+#rm -rf /tmp/thermiq_install
+
 
 echo "Here is your web file architecture."
 ls -l $webrootdocker

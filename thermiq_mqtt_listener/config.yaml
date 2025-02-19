@@ -1,8 +1,9 @@
-name: Apache2
-version: 2.11.1
-slug: apache2
-description: OpenSource Webserver with PHP and MariaDB
-url: https://github.com/FaserF/hassio-addons/tree/master/apache2
+---
+name: thermiq_listener
+version: 0.0.1
+slug: thermiq2
+description: ThermIQ MQTT Listener to MariaDB
+url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_listener
 arch:
   - armhf
   - armv7
@@ -11,40 +12,46 @@ arch:
   - i386
 startup: application
 boot: auto
-webui: http://[HOST]:[PORT:80]
+webui: 
 map:
   - ssl:rw
   - media:rw
   - share:rw
-ingress: true
+ingress: false
 init: false
 panel_icon: mdi:web-box
 options:
-  document_root: /share/htdocs
-  php_ini: default
-  default_conf: default
-  default_ssl_conf: default
-  website_name: null
-  ssl: true
+
+  mqtt_server:
+  mqtt_port:
+  mqtt_user: 
+  mqtt_pw:
+  mariadb_user:
+  mariadb_pw:
+  php_ini: str
+
+
+
+  ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
-  init_commands: []
+
 schema:
-  document_root: str
+  mqtt_server: str
+  mqtt_port: str
+  mqtt_user: str
+  mqtt_pw: str
+  mariadb_user: str
+  mariadb_pw: str
+  mariadb_user: str
+  mariadb_pw : str
   php_ini: str
-  default_conf: str
-  default_ssl_conf: str
-  website_name: str
-  username: str?
-  password: password?
+
   ssl: bool
   certfile: str
   keyfile: str
-  init_commands:
-    - str?
+
 ports:
-  80/tcp: 80
-  443/tcp: 8324
+
 ports_description:
-  80/tcp: Web interface http
-  443/tcp: SSL Web interface
+
