@@ -1,5 +1,5 @@
 name: thermiq2-web
-version: 0.0.1
+version: 0.0.2
 slug: thermiq2
 description: ThermIQ2-web container based on Apache and PHP8
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq2_web
