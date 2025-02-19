@@ -1,5 +1,5 @@
 name: thermiq_mqtt_listener
-version: 0.0.3
+version: 0.0.4
 slug: thermiq_mqtt_listener
 description: thermiq_mqtt_listener
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
@@ -11,7 +11,7 @@ arch:
   - i386
 startup: application
 boot: auto
-
+webui: http://[HOST]:[PORT:81]
 map:
   - ssl:rw
   - media:rw
@@ -48,7 +48,4 @@ schema:
   certfile: str
   keyfile: str
 
-ports:
-
-ports_description:
 
