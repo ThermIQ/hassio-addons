@@ -11,12 +11,12 @@ arch:
   - i386
 startup: application
 boot: auto
-webui: 
+webui: http://[HOST]:[PORT:81]
 map:
   - ssl:rw
   - media:rw
   - share:rw
-ingress: false
+ingress: true
 init: false
 panel_icon: mdi:web-box
 options:
@@ -27,7 +27,7 @@ options:
   mqtt_pw:
   mariadb_user:
   mariadb_pw:
-  php_ini: str
+  php_ini: /share/php.ini
 
 
 
@@ -43,7 +43,7 @@ schema:
   mariadb_user: str
   mariadb_pw: str
   mariadb_user: str
-  mariadb_pw : str
+  mariadb_pw : strs
   php_ini: str
 
   ssl: bool
@@ -51,6 +51,8 @@ schema:
   keyfile: str
 
 ports:
-
+  80/tcp: 82
+  443/tcp: 8325
 ports_description:
-
+  80/tcp: Web interface http
+  443/tcp: SSL Web interface
