@@ -1,7 +1,7 @@
-name: thermiq2-wee
+name: thermiq_mqtt_listener
 version: 0.0.1
-slug: thermiq2wee
-description: ThermIQ2-web container based on Apache and PHP8
+slug: thermiq_mqtt_listener
+description: thermiq_mqtt_listener
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
 arch:
   - armhf
