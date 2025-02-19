@@ -1,8 +1,9 @@
-name: Apache2
-version: 2.11.1
-slug: apache2
-description: OpenSource Webserver with PHP and MariaDB
-url: https://github.com/FaserF/hassio-addons/tree/master/apache2
+---
+name: thermiq2-web
+version: 0.1.44
+slug: thermiq2
+description: ThermIQ2-web based on Apache and PHP8
+url: https://github.com/ThermIQ/hassio-addons/tree/master/apache2
 arch:
   - armhf
   - armv7
@@ -11,7 +12,7 @@ arch:
   - i386
 startup: application
 boot: auto
-webui: http://[HOST]:[PORT:80]
+webui: http://[HOST]:[PORT:81]
 map:
   - ssl:rw
   - media:rw
@@ -20,21 +21,33 @@ ingress: true
 init: false
 panel_icon: mdi:web-box
 options:
+  website_name: ThermIQ
+  thermiq_user: 
+  thermiq_licenskey:
+  mariadb_user:
+  mariadb_pw:
+  thermiq_init: true
   document_root: /share/htdocs
-  php_ini: default
+  php_ini: /share/php.ini
   default_conf: default
   default_ssl_conf: default
-  website_name: null
-  ssl: true
+
+  ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
   init_commands: []
 schema:
+  website_name: str
+  thermiq_user:  str
+  thermiq_licenskey: str
+  mariadb_user: str
+  mariadb_pw : str
+  thermiq_init: bool
   document_root: str
   php_ini: str
   default_conf: str
   default_ssl_conf: str
-  website_name: str
+
   username: str?
   password: password?
   ssl: bool
@@ -43,7 +56,7 @@ schema:
   init_commands:
     - str?
 ports:
-  80/tcp: 80
+  80/tcp: 81
   443/tcp: 8324
 ports_description:
   80/tcp: Web interface http
