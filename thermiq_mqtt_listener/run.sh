@@ -2,6 +2,9 @@
 ssl=$(bashio::config 'ssl')
 phpini=$(bashio::config 'php_ini')
 phppath=/etc/php84/php.ini
+certfile=$(bashio::config 'certfile')
+keyfile=$(bashio::config 'keyfile')
+
 
 if [ $phpini = "get_file" ]; then
 	cp $phppath /share/apache2addon_php.ini
@@ -22,7 +25,7 @@ if [ $phpini != "default" ]; then
 	fi
 fi
 
-if [ $ssl = "true" ] && [ $default_conf = "default" ]; then
+if [ $ssl = "true" ]; then
 	echo "You have activated SSL. SSL Settings will be applied"
 	if [ ! -f /ssl/$certfile ]; then
 		echo "Cannot find certificate file $certfile"
@@ -39,12 +42,6 @@ fi
 
 
 mkdir -p /usr/lib/php84/modules/opcache
-
-#rm -rf /tmp/thermiq_install
-
-
-echo "Here is your web file architecture."
-ls -l $webrootdocker
 
 echo "Starting ThermIQ_MQTT_listener..."
 exec php84 /share/thermiq/ThermIQ_MQTT_listener 
