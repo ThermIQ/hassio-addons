@@ -1,5 +1,5 @@
 name: thermiq_mqtt_listener
-version: 0.0.7
+version: 0.0.8
 slug: thermiq_mqtt_listener
 description: thermiq_mqtt_listener
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
