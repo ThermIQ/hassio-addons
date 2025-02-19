@@ -1,6 +1,6 @@
 name: thermiq_listener
 version: 0.0.1
-slug: thermiq2
+slug: thermiq_listener
 description: ThermIQ MQTT Listener to MariaDB
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_listener
 arch:
