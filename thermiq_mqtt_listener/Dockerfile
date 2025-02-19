@@ -36,7 +36,8 @@ RUN mkdir -p /opt/bin
 
 # Configure php path for scripts
 RUN cd /opt/bin && ln -sf /usr/bin/php84 php
-ENV PATH="$PATH:/share/thermiq:/opt/bin" 
+ENV PATH="$PATH:/share/thermiq:/opt/bin" ¨
 
+RUN cd /opt/ && ln -sf /share/thermiq/etc
 
-#CMD [ "/run.sh" ]
+CMD [ "/run.sh" ]

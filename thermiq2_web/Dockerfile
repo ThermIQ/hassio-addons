@@ -63,9 +63,4 @@ ENV PATH="$PATH:/share/thermiq:/opt/bin"
 
 RUN cd /opt/ && ln -sf /share/thermiq/etc
 
-#RUN php84 usr/sbin/mkdbtemplate -m ThermIQ ThermIQ_MQTT
-
-#RUN rm -rf /tmp/thermiq_install
-
-
 CMD [ "/run.sh" ]

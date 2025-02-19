@@ -1,5 +1,5 @@
 name: thermiq_mqtt_listener
-version: 0.0.8
+version: 0.0.10
 slug: thermiq_mqtt_listener
 description: thermiq_mqtt_listener
 url: https://github.com/ThermIQ/hassio-addons/tree/master/thermiq_mqtt_listener
@@ -19,32 +19,32 @@ ingress: true
 init: false
 panel_icon: mdi:web-box
 options:
-  mqtt_server:
-  mqtt_port:
-  mqtt_user: 
-  mqtt_pw:
-  mariadb_user:
-  mariadb_pw:
+  # mqtt_server:
+  # mqtt_port:
+  # mqtt_user: 
+  # mqtt_pw:
+  # mariadb_user:
+  # mariadb_pw:
   php_ini: /share/php.ini
 
-  ssl: false
-  certfile: fullchain.pem
-  keyfile: privkey.pem
+  # ssl: false
+  # certfile: fullchain.pem
+  # keyfile: privkey.pem
 
 schema:
-  mqtt_server: str
-  mqtt_port: str
-  mqtt_user: str
-  mqtt_pw: str
-  mariadb_user: str
-  mariadb_pw : str
+  # mqtt_server: str
+  # mqtt_port: str
+  # mqtt_user: str
+  # mqtt_pw: str
+  # mariadb_user: str
+  # mariadb_pw : str
 
   php_ini: str
 
 
 
-  ssl: bool
-  certfile: str
-  keyfile: str
+  # ssl: bool
+  # certfile: str
+  # keyfile: str
 
 

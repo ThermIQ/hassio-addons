@@ -1,18 +1,10 @@
 #!/usr/bin/with-contenv bashio 
-ssl=$(bashio::config 'ssl')
 phpini=$(bashio::config 'php_ini')
 phppath=/etc/php84/php.ini
-certfile=$(bashio::config 'certfile')
-keyfile=$(bashio::config 'keyfile')
 
-
-if [ $phpini = "get_file" ]; then
-	cp $phppath /share/apache2addon_php.ini
-	echo "You have requestet a copy of the php.ini file. You will now find your copy at /share/apache2addon_php.ini"
-	echo "Addon will now be stopped. Please remove the config option and change it to the name of your new config file (for example /share/php.ini)"
-	exit 1
-fi
-
+# ssl=$(bashio::config 'ssl')
+# certfile=$(bashio::config 'certfile')
+# keyfile=$(bashio::config 'keyfile')
 
 
 if [ $phpini != "default" ]; then
@@ -25,23 +17,23 @@ if [ $phpini != "default" ]; then
 	fi
 fi
 
-if [ $ssl = "true" ]; then
-	echo "You have activated SSL. SSL Settings will be applied"
-	if [ ! -f /ssl/$certfile ]; then
-		echo "Cannot find certificate file $certfile"
-		exit 1
-	fi
-	if [ ! -f /ssl/$keyfile ]; then
-		echo "Cannot find certificate key file $keyfile"
-		exit 1
-	fi
-else
-	echo "SSL is deactivated and/or you are using a custom config."
-fi
+# if [ $ssl = "true" ]; then
+# 	echo "You have activated SSL. SSL Settings will be applied"
+# 	if [ ! -f /ssl/$certfile ]; then
+# 		echo "Cannot find certificate file $certfile"
+# 		exit 1
+# 	fi
+# 	if [ ! -f /ssl/$keyfile ]; then
+# 		echo "Cannot find certificate key file $keyfile"
+# 		exit 1
+# 	fi
+# else
+# 	echo "SSL is deactivated and/or you are using a custom config."
+# fi
 
 
 
 mkdir -p /usr/lib/php84/modules/opcache
 
 echo "Starting ThermIQ_MQTT_listener..."
-exec php84 /share/thermiq/ThermIQ_MQTT_listener 
+exec php84 /share/thermiq/ThermIQ_MQTT_listener -p
