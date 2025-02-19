@@ -39,4 +39,4 @@ RUN cd /opt/bin && ln -sf /usr/bin/php84 php
 ENV PATH="$PATH:/share/thermiq:/opt/bin" 
 
 
-CMD [ "/run.sh" ]
+#CMD [ "/run.sh" ]

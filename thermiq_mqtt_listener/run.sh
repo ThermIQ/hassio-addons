@@ -44,4 +44,4 @@ fi
 mkdir -p /usr/lib/php84/modules/opcache
 
 echo "Starting ThermIQ_MQTT_listener..."
-#exec php84 /share/thermiq/ThermIQ_MQTT_listener 
+exec php84 /share/thermiq/ThermIQ_MQTT_listener 
