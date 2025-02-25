@@ -1,5 +1,5 @@
 name: air_modbuspoller
-version: 0.0.1
+version: 0.0.5
 slug: air_modbuspoller
 description: air_modbuspoller
 url: https://github.com/ThermIQ/hassio-addons/tree/master/air_modbuspoller

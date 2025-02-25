@@ -35,5 +35,5 @@ fi
 
 mkdir -p /usr/lib/php84/modules/opcache
 
-echo "Starting ThermIQ_MQTT_listener..."
+echo "Starting ThermIQ_AIR_modbuspoller..."
 exec php84 /share/thermiq/ThermIQ_AIR_modbuspoller -cz
